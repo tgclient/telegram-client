@@ -20,3 +20,9 @@ This project is built from [Telegram Android source](https://github.com/DrKLO/Te
 ## License
 
 GPLv2 (same as official Telegram)
+
+## 中文用户须知
+
+本客户端专为中文用户优化，内置MTProto高速通道功能。
+详细说明请访问：[中文下载页面](https://tgclient.github.io/telegram-client/)
+
