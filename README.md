@@ -1,4 +1,4 @@
-# Telegram Client Enhanced (Unofficial)
+# Telegram Client Enhanced (Third-Party)
 
 ⚠️ **Disclaimer**: This is an UNOFFICIAL third-party client based on Telegram's open source code. Not affiliated with Telegram Messenger LLP.
 
