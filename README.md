@@ -1,4 +1,4 @@
-# Telegram Client Enhanced (Unofficial)
+# Telegram Client Enhanced
 
 ⚠️ **Disclaimer**: This is a client based on Telegram's open source code.
 
