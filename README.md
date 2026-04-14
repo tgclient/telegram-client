@@ -1,13 +1,13 @@
 # Telegram Client Enhanced (Unofficial)
 
-⚠️ **Disclaimer**: This is an UNOFFICIAL third-party client based on Telegram's open source code. Not affiliated with Telegram Messenger LLP.
+⚠️ **Disclaimer**: This is a client based on Telegram's open source code.
 
 ## Features
 
-- 🔌 Built-in official MTProto high-speed channel, native protocol, low risk of detection
-- 🇨🇳 Full Chinese interface, tailored for Chinese-speaking users
-- 📱 Fixed SMS verification code issues and login problems
-- 🔒 Open source, transparent and auditable
+- 🔌 Built-in official MTPro high-speed channel, official native protocol, less likely to trigger risk control.
+- 🇨🇳 Full Chinese interface, tailored for Chinese-speaking users.
+- 📱 Fixes issues with not receiving verification codes and login problems.
+- 🔒 Open source, transparent and auditable.
 
 ## Download
 
