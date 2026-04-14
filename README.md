@@ -1,17 +1,17 @@
-# Telegram Client Enhanced
+# Telegram Client Enhanced (Unofficial)
 
-⚠️ **Disclaimer**: This is an UNOFFICIAL third-party client based on Telegram's open source code. 
+⚠️ **Disclaimer**: This is an UNOFFICIAL third-party client based on Telegram's open source code. Not affiliated with Telegram Messenger LLP.
 
 ## Features
 
-- 🔌 Built-in connection optimization for restricted networks
-- 🇨🇳 Full Simplified Chinese localization
-- 📱 Pre-configured, ready to use
+- 🔌 Built-in official MTProto high-speed channel, native protocol, low risk of detection
+- 🇨🇳 Full Chinese interface, tailored for Chinese-speaking users
+- 📱 Fixed SMS verification code issues and login problems
 - 🔒 Open source, transparent and auditable
 
 ## Download
 
-[Download Page](https://fish6688.github.io/telegram-client/)
+[Download Page](https://tgclient.github.io/telegram-client/)
 
 ## About
 
