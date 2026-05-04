@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Telegram Client - 下载</title>
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="79c0a886-96c2-4464-b49b-10802486a0db";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
     <style>
@@ -12,73 +12,105 @@
             box-sizing: border-box;
         }
         
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* 使用 dvh 适配移动端动态地址栏 */
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            /* 移除 align-items: center 防止溢出截断 */
+            padding: 16px;
+            /* 刘海屏安全区域 */
+            padding-top: max(16px, env(safe-area-inset-top));
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .container {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 24px 20px;
             max-width: 500px;
             width: 100%;
+            /* 限制最大高度，留出上下边距 */
+            max-height: calc(100dvh - 32px);
+            max-height: calc(100vh - 32px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
+            /* 垂直居中且可滚动 */
+            margin: auto;
+            overflow-y: auto;
+            /* 平滑滚动 */
+            scrollbar-width: thin;
+        }
+        
+        /* 隐藏滚动条但保持功能 */
+        .container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .container::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 2px;
         }
         
         .logo {
-            display: block;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
+            width: 72px;
+            height: 72px;
+            margin: 16px auto 16px;
             border-radius: 50%;
             overflow: hidden;
             background: linear-gradient(135deg, #0088cc 0%, #00aaff 100%);
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         
         .logo svg {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             fill: white;
         }
         
         h1 {
             color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
+            margin-bottom: 8px;
+            font-size: clamp(22px, 5vw, 28px);
         }
         
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 24px;
+            font-size: clamp(13px, 3.5vw, 15px);
+            line-height: 1.5;
         }
         
         .features {
             text-align: left;
-            margin: 30px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 16px;
             background: #f8f9fa;
             border-radius: 12px;
         }
         
         .features li {
             list-style: none;
-            padding: 8px 0;
+            padding: 6px 0;
             color: #555;
-            font-size: 15px;
+            font-size: clamp(13px, 3.5vw, 15px);
+            line-height: 1.5;
         }
         
         .features li:before {
@@ -93,13 +125,21 @@
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
             text-decoration: none;
-            padding: 16px 50px;
+            padding: 14px 48px;
             border-radius: 30px;
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 18px);
             font-weight: bold;
-            margin: 20px 0;
+            margin: 8px 0 16px;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            /* 防止按钮被压缩 */
+            flex-shrink: 0;
+            /* 移动端点击高亮 */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .download-btn:active {
+            transform: scale(0.96);
         }
         
         .download-btn:hover {
@@ -109,21 +149,54 @@
         
         .version {
             color: #999;
-            font-size: 14px;
-            margin-top: 15px;
+            font-size: clamp(12px, 3vw, 14px);
+            margin-top: 12px;
+            margin-bottom: 12px;
         }
         
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #999;
-            font-size: 13px;
+        /* 小屏手机额外优化 */
+        @media (max-width: 375px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+            .logo {
+                width: 64px;
+                height: 64px;
+            }
+            .logo svg {
+                width: 40px;
+                height: 40px;
+            }
+            .features {
+                padding: 12px;
+                margin: 16px 0;
+            }
         }
         
-        .footer a {
-            color: #0088cc;
-            text-decoration: none;
+        /* 横屏模式 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                text-align: left;
+                gap: 20px;
+                padding: 16px;
+            }
+            .logo {
+                margin: 0;
+                flex-shrink: 0;
+            }
+            .content-wrapper {
+                flex: 1;
+            }
+            .features {
+                margin: 12px 0;
+            }
         }
     </style>
 </head>
@@ -134,19 +207,21 @@
                 <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
             </svg>
         </div>
-        <h1>Telegram Client</h1>
-        <p class="subtitle">内置官方MTProto高速通道，即开即用。</p>
         
-        <ul class="features">
-            <li>无需魔法配置，安装即用。</li>
-            <li>完整中文界面。</li>
-            <li>解决收不到验证码、无法登陆等问题。</li>
-        </ul>
-        
-        <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">立即下载</a>
-        
-        <p class="version">版本 v12.5.1 | Android</p>
-    
+        <div class="content-wrapper">
+            <h1>Telegram Client</h1>
+            <p class="subtitle">内置官方MTProto高速通道，即开即用。</p>
+            
+            <ul class="features">
+                <li>无需魔法配置，安装即用。</li>
+                <li>完整中文界面。</li>
+                <li>解决收不到验证码、无法登陆等问题。</li>
+            </ul>
+            
+            <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">立即下载</a>
+            
+            <p class="version">版本 v12.5.1 | Android</p>
+        </div>
     </div>
 </body>
 </html>
