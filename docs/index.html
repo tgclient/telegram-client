@@ -19,14 +19,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            /* 使用 dvh 适配移动端动态地址栏 */
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
             justify-content: center;
-            /* 移除 align-items: center 防止溢出截断 */
             padding: 16px;
-            /* 刘海屏安全区域 */
             padding-top: max(16px, env(safe-area-inset-top));
             padding-bottom: max(16px, env(safe-area-inset-bottom));
             padding-left: max(16px, env(safe-area-inset-left));
@@ -41,19 +38,15 @@
             padding: 24px 20px;
             max-width: 500px;
             width: 100%;
-            /* 限制最大高度，留出上下边距 */
             max-height: calc(100dvh - 32px);
             max-height: calc(100vh - 32px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
-            /* 垂直居中且可滚动 */
             margin: auto;
             overflow-y: auto;
-            /* 平滑滚动 */
             scrollbar-width: thin;
         }
         
-        /* 隐藏滚动条但保持功能 */
         .container::-webkit-scrollbar {
             width: 4px;
         }
@@ -129,12 +122,10 @@
             border-radius: 30px;
             font-size: clamp(16px, 4vw, 18px);
             font-weight: bold;
-            margin: 8px 0 16px;
+            margin: 8px 0 12px;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
-            /* 防止按钮被压缩 */
             flex-shrink: 0;
-            /* 移动端点击高亮 */
             -webkit-tap-highlight-color: transparent;
         }
         
@@ -147,14 +138,49 @@
             box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
         }
         
+        /* ========== iOS 提示条 ========== */
+        .ios-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 auto 12px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            border: 1px solid #c7d2fe;
+            border-radius: 20px;
+            font-size: clamp(12px, 3.2vw, 13px);
+            color: #4f46e5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            max-width: 90%;
+        }
+        
+        .ios-hint:active {
+            transform: scale(0.98);
+            background: linear-gradient(135deg, #e0e7ff 0%, #d8e0ff 100%);
+        }
+        
+        .ios-hint svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            color: #4f46e5;
+        }
+        
+        .ios-hint .arrow {
+            margin-left: 2px;
+            font-size: 11px;
+            color: #6366f1;
+        }
+        
         .version {
             color: #999;
             font-size: clamp(12px, 3vw, 14px);
-            margin-top: 12px;
+            margin-top: 4px;
             margin-bottom: 12px;
         }
         
-        /* 小屏手机额外优化 */
         @media (max-width: 375px) {
             body {
                 padding: 12px;
@@ -175,9 +201,11 @@
                 padding: 12px;
                 margin: 16px 0;
             }
+            .ios-hint {
+                padding: 6px 12px;
+            }
         }
         
-        /* 横屏模式 */
         @media (max-height: 500px) and (orientation: landscape) {
             .container {
                 display: flex;
@@ -196,6 +224,9 @@
             }
             .features {
                 margin: 12px 0;
+            }
+            .ios-hint {
+                margin: 0 0 8px 0;
             }
         }
     </style>
@@ -219,6 +250,16 @@
             </ul>
             
             <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">立即下载</a>
+            
+            <!-- iOS 用户提示 -->
+            <div class="ios-hint" onclick="$crisp.push(['do', 'chat:open'])">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span>iOS 用户请联系右下角客服安装</span>
+                <span class="arrow">›</span>
+            </div>
             
             <p class="version">版本 v12.5.1 | Android</p>
         </div>
