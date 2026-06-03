@@ -20,7 +20,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
@@ -42,7 +42,7 @@
             width: 100%;
             max-height: calc(100dvh - 32px);
             max-height: calc(100vh - 32px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(180, 83, 9, 0.35);
             text-align: center;
             margin: auto;
             overflow-y: auto;
@@ -66,7 +66,7 @@
             margin: 16px auto 16px;
             border-radius: 50%;
             overflow: hidden;
-            background: linear-gradient(135deg, #0088cc 0%, #00aaff 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -96,7 +96,7 @@
             text-align: left;
             margin: 20px 0;
             padding: 16px;
-            background: #f8f9fa;
+            background: #fffbeb;
             border-radius: 12px;
         }
         
@@ -110,14 +110,14 @@
         
         .features li:before {
             content: "✓ ";
-            color: #28a745;
+            color: #d97706;
             font-weight: bold;
             margin-right: 8px;
         }
         
         .download-btn {
             display: inline-block;
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: white;
             text-decoration: none;
             padding: 14px 48px;
@@ -126,7 +126,7 @@
             font-weight: bold;
             margin: 8px 0 12px;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
             flex-shrink: 0;
             -webkit-tap-highlight-color: transparent;
         }
@@ -137,21 +137,20 @@
         
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
         }
         
-        /* ========== iOS 提示条 ========== */
         .ios-hint {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             margin: 0 auto 12px;
             padding: 8px 14px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-            border: 1px solid #c7d2fe;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #fcd34d;
             border-radius: 20px;
             font-size: clamp(12px, 3.2vw, 13px);
-            color: #4f46e5;
+            color: #b45309;
             cursor: pointer;
             transition: all 0.2s ease;
             -webkit-tap-highlight-color: transparent;
@@ -160,27 +159,77 @@
         
         .ios-hint:active {
             transform: scale(0.98);
-            background: linear-gradient(135deg, #e0e7ff 0%, #d8e0ff 100%);
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         }
         
         .ios-hint svg {
             width: 16px;
             height: 16px;
             flex-shrink: 0;
-            color: #4f46e5;
+            color: #b45309;
         }
         
         .ios-hint .arrow {
             margin-left: 2px;
             font-size: 11px;
-            color: #6366f1;
+            color: #d97706;
         }
         
-        .version {
-            color: #999;
-            font-size: clamp(12px, 3vw, 14px);
-            margin-top: 4px;
-            margin-bottom: 12px;
+        /* 网站地址 + 复制按钮样式 */
+        .site-link-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: #fffbeb;
+            border-radius: 12px;
+            border: 1px solid #fcd34d;
+        }
+        
+        .site-url {
+            color: #b45309;
+            font-size: clamp(13px, 3.5vw, 15px);
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .site-url:active {
+            opacity: 0.7;
+        }
+        
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .copy-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+        
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         }
         
         @media (max-width: 375px) {
@@ -206,6 +255,14 @@
             .ios-hint {
                 padding: 6px 12px;
             }
+            .site-link-box {
+                padding: 8px 12px;
+                gap: 6px;
+            }
+            .copy-btn {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
         }
         
         @media (max-height: 500px) and (orientation: landscape) {
@@ -230,6 +287,9 @@
             .ios-hint {
                 margin: 0 0 8px 0;
             }
+            .site-link-box {
+                margin-top: 8px;
+            }
         }
     </style>
 </head>
@@ -251,7 +311,7 @@
                 <li>解决收不到验证码、无法登陆等问题。</li>
             </ul>
             
-            <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">立即下载安卓端</a>
+            <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">安卓立即下载</a>
             
             <!-- iOS 用户提示 -->
             <div class="ios-hint" onclick="$crisp.push(['do', 'chat:open'])">
@@ -263,8 +323,65 @@
                 <span class="arrow">›</span>
             </div>
             
-            <p class="version">版本 v12.5.1 | Android</p>
+            <!-- 网站地址 + 复制按钮 -->
+            <div class="site-link-box">
+                <a href="https://www.Telegram.baby" class="site-url" target="_blank">www.Telegram.baby</a>
+                <button class="copy-btn" onclick="copyUrl(this)">
+                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                    复制
+                </button>
+            </div>
         </div>
     </div>
+    
+    <script>
+        function copyUrl(btn) {
+            const url = 'www.Telegram.baby';
+            const originalText = btn.innerHTML;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(url, btn);
+                });
+            } else {
+                fallbackCopy(url, btn);
+            }
+        }
+        
+        function fallbackCopy(text, btn) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopied(btn);
+            } catch (err) {
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>失败';
+                setTimeout(function() {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        function showCopied(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>已复制';
+            
+            setTimeout(function() {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
