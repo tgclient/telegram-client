@@ -177,6 +177,16 @@
             font-size: clamp(11px, 3vw, 12px);
             color: #e64a19;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .wx-hint svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            color: #ff7043;
         }
 
         .download-btn {
@@ -325,6 +335,10 @@
                 width: 10px;
                 height: 10px;
             }
+            .wx-hint svg {
+                width: 12px;
+                height: 12px;
+            }
             .ios-hint {
                 padding: 6px 12px;
             }
@@ -390,7 +404,12 @@
                             复制
                         </button>
                     </span>
-                    <span class="wx-hint">解决任何登录问题，请加VX，谢谢。</span>
+                    <span class="wx-hint">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        解决任何登录问题，请加VX，谢谢。
+                    </span>
                 </li>
             </ul>
 
