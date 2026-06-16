@@ -115,19 +115,24 @@
             margin-right: 8px;
         }
 
-        /* 微信号复制区域样式 */
+        /* 微信号复制区域 - 紧跟文字后面 */
         .wx-item {
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: flex-start;
             flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .wx-line {
+            display: inline-flex;
+            align-items: center;
             gap: 6px;
-            padding: 6px 0;
+            flex-wrap: wrap;
         }
 
         .wx-text {
-            font-size: clamp(13px, 3.5vw, 15px);
             color: #555;
+            font-size: clamp(13px, 3.5vw, 15px);
             line-height: 1.5;
         }
 
@@ -135,8 +140,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 3px;
-            padding: 3px 8px;
+            gap: 2px;
+            padding: 2px 8px;
             background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
             color: white;
             border: none;
@@ -147,8 +152,8 @@
             transition: all 0.2s ease;
             -webkit-tap-highlight-color: transparent;
             white-space: nowrap;
-            flex-shrink: 0;
-            line-height: 1.4;
+            line-height: 1;
+            height: 22px;
         }
 
         .wx-copy-btn:active {
@@ -156,8 +161,8 @@
         }
 
         .wx-copy-btn svg {
-            width: 11px;
-            height: 11px;
+            width: 12px;
+            height: 12px;
             fill: currentColor;
         }
 
@@ -168,6 +173,7 @@
         .wx-hint {
             width: 100%;
             margin-top: 2px;
+            padding-left: 22px;
             font-size: clamp(11px, 3vw, 12px);
             color: #e64a19;
             font-weight: 500;
@@ -313,6 +319,7 @@
             .wx-copy-btn {
                 padding: 2px 6px;
                 font-size: 10px;
+                height: 20px;
             }
             .wx-copy-btn svg {
                 width: 10px;
@@ -376,11 +383,13 @@
                 <li>完整中文界面。</li>
                 <li>解决收不到验证码、无法登陆等问题。</li>
                 <li class="wx-item">
-                    <span class="wx-text">+VX：tgzhidenghao</span>
-                    <button class="wx-copy-btn" onclick="copyWx(this)">
-                        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-                        复制
-                    </button>
+                    <span class="wx-line">
+                        <span class="wx-text">+VX：tgzhidenghao</span>
+                        <button class="wx-copy-btn" onclick="copyWx(this)">
+                            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            复制
+                        </button>
+                    </span>
                     <span class="wx-hint">解决任何登录问题，请加VX，谢谢。</span>
                 </li>
             </ul>
