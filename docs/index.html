@@ -470,9 +470,9 @@
         .contact-chip {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
-            border-radius: 10px;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 500;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -506,10 +506,52 @@
         }
 
         .contact-chip svg {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
             flex-shrink: 0;
+        }
+
+        /* 联系方式内复制按钮 */
+        .contact-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: currentColor;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+            margin-left: 2px;
+        }
+
+        .contact-copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .contact-copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .contact-copy-btn svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        .contact-copy-btn.copied {
+            background: rgba(0, 208, 132, 0.25);
+            color: #00d084;
+            border-color: rgba(0, 208, 132, 0.4);
         }
 
         /* 分隔线 */
@@ -773,6 +815,16 @@
                 width: 18px;
                 height: 18px;
             }
+
+            .contact-chip {
+                font-size: 13px;
+                padding: 9px 12px;
+            }
+
+            .contact-copy-btn {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
         }
 
         @media (max-height: 600px) and (orientation: landscape) {
@@ -922,11 +974,19 @@
                 <div class="contact-row">
                     <div class="contact-chip qq">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-2h2v2h-2zm0-4v-5h2v5h-2z"/></svg>
-                        QQ群：929216454
+                        <span>QQ群：929216454</span>
+                        <button class="contact-copy-btn" onclick="copyContact(this, '929216454')">
+                            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            复制
+                        </button>
                     </div>
                     <div class="contact-chip wechat">
                         <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-                        微信号：APPyuzhou
+                        <span>微信号：APPyuzhou</span>
+                        <button class="contact-copy-btn" onclick="copyContact(this, 'APPyuzhou')">
+                            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            复制
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1011,6 +1071,21 @@
             }
         }
 
+        // 复制QQ/微信号
+        function copyContact(btn, text) {
+            const originalHTML = btn.innerHTML;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showContactCopied(btn, originalHTML);
+                }).catch(function() {
+                    fallbackCopy(text, btn, originalHTML);
+                });
+            } else {
+                fallbackCopy(text, btn, originalHTML);
+            }
+        }
+
         function fallbackCopy(text, btn, originalHTML) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
@@ -1021,7 +1096,11 @@
 
             try {
                 document.execCommand('copy');
-                showCopied(btn, originalHTML);
+                if (btn.classList.contains('contact-copy-btn')) {
+                    showContactCopied(btn, originalHTML);
+                } else {
+                    showCopied(btn, originalHTML);
+                }
             } catch (err) {
                 btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>失败';
                 setTimeout(function() {
@@ -1034,6 +1113,16 @@
         }
 
         function showCopied(btn, originalHTML) {
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>已复制';
+
+            setTimeout(function() {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+
+        function showContactCopied(btn, originalHTML) {
             btn.classList.add('copied');
             btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>已复制';
 
